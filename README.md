@@ -1,5 +1,4 @@
 
-Discrete Math: The Game
 # Discrete Math: The Game
 
 A tiny web app to learn discrete math concepts with interactive visuals and practice problems.
@@ -10,6 +9,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
 
 ## Features
 - 3 progressive levels: Product Principle → Powersets → Combinations
@@ -26,6 +26,7 @@ uvicorn app.main:app --reload
 ## Tests
 ```bash
 python -m pytest -q
+```
 
 ## Feedback
 Email: wade.candace1@gmail.com
