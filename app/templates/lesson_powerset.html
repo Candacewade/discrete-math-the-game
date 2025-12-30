@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>Powersets</h1>
+  <p class="muted">Every item can be either <strong>in</strong> or <strong>out</strong> of the subset → that’s why the count is <strong>2^n</strong>.</p>
+
+<h3 id="powersetTopQuestion" class="top-question start-hint">
+  Click “New problem” to start, then hit next to visualize the problem.
+</h3>
+
+
+<div class="card">
+  <div id="psInstr" class="muted">
+    Click Next to cycle through subsets (and reveal all subsets).
+  </div>
+
+  <button id="psNextBtn" class="next-btn">Next</button>
+
+  <!-- Colorful animation area (Items + Current subset) -->
+  <div class="ps-vizgrid">
+    <div>
+      <div class="ps-label">Items (n)</div>
+      <div id="psPool" class="ps-pool"></div>
+    </div>
+
+    <div>
+      <div class="ps-label">Current subset</div>
+      <div class="ps-box" id="psSubsetBox">
+        <div id="psSubset" class="ps-subset"></div>
+        <div id="psSubsetEmpty" class="muted" style="padding: 10px 0;">(empty set)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All subsets will be injected here -->
+  <div id="psAllMount"></div>
+
+  <div class="ps-eq">
+    <div id="psEq" class="eqText">Total subsets = 2^n</div>
+  </div>
+</div>
+
+
+  <!-- Questions card (continuity with other levels) -->
+  <div class="card" id="powerset-level-area">
+    <h2>Questions</h2>
+
+    <div id="powerset-level-banner">
+      {% if level_complete %}
+        <div class="level-complete" data-fired="0">
+          ✅ Level complete! <a href="/lesson/choose">Go to Combinations →</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div id="powerset-stats" class="statsline">
+      Streak: {{ stats.streak }} / {{ level_target }} · Attempts: {{ stats.attempts }} · Best streak: {{ stats.best_streak }}
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button
+        hx-post="/lesson/powerset/new"
+        hx-target="#powerset-problem-area"
+        hx-swap="innerHTML"
+      >
+        New problem
+      </button>
+
+      <button
+        hx-post="/lesson/powerset/reset"
+        hx-target="#powerset-problem-area"
+        hx-swap="innerHTML"
+      >
+        Reset level
+      </button>
+    </div>
+
+    <div id="powerset-problem-area">
+      {% if problem %}
+        {% include "partials/powerset_problem_block.html" %}
+      {% else %}
+        <p class="muted start-hint">Click “New problem” to start, then hit next to visualize the problem.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="/static/js/animations/powerset_anim.js"></script>
+
+  <!-- Confetti on level complete -->
+  <script>
+    function powersetMaybeConfetti() {
+      const done = document.querySelector("#powerset-level-area .level-complete");
+      if (!done) return;
+      if (done.dataset.fired === "1") return;
+      done.dataset.fired = "1";
+      if (window.confetti) {
+        confetti({ particleCount: 140, spread: 80, origin: { y: 0.6 } });
+        setTimeout(() => confetti({ particleCount: 70, spread: 120, origin: { y: 0.6 } }), 180);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", powersetMaybeConfetti);
+    document.body.addEventListener("htmx:afterSwap", powersetMaybeConfetti);
+  </script>
+{% endblock %}

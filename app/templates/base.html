@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Discrete Math: The Game</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  {% set path = request.url.path %}
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">Discrete Math: The Game</div>
+      <nav class="nav">
+        <a class="{{ 'active' if path == '/' else '' }}" href="/">Home</a>
+        <a class="{{ 'active' if path.startswith('/levels') else '' }}" href="/levels">Levels</a>
+        <a class="{{ 'active' if path.startswith('/lesson/product') else '' }}" href="/lesson/product">Product</a>
+        <a class="{{ 'active' if path.startswith('/lesson/powerset') else '' }}" href="/lesson/powerset">Powersets</a>
+        <a class="{{ 'active' if path.startswith('/lesson/choose') else '' }}" href="/lesson/choose">Combinations</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      {% if content %}
+        <p>{{ content }}</p>
+      {% endif %}
+      {% block body %}{% endblock %}
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</body>
+</html>

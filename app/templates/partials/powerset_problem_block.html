@@ -1,0 +1,47 @@
+<p><strong>Question:</strong> {{ problem["prompt"] }}</p>
+
+<form
+  hx-post="/lesson/powerset/answer"
+  hx-target="#powerset-feedback"
+  hx-swap="innerHTML"
+>
+  <input name="answer" placeholder="Enter a number" required />
+  <button type="submit">Check</button>
+</form>
+
+<div id="powerset-feedback"></div>
+
+<button
+  hx-post="/lesson/powerset/hint"
+  hx-target="#powerset-hint"
+  hx-swap="innerHTML"
+>
+  Reveal hint
+</button>
+
+<div id="powerset-hint">
+  {% include "partials/powerset_hint.html" %}
+</div>
+
+<!-- OOB: replace the top-of-page green starter text with the actual question -->
+<h3 id="powersetTopQuestion" class="top-question" hx-swap-oob="outerHTML">
+  {{ problem["prompt"] }}
+</h3>
+
+{# Prefer problem["items"] if present, else fall back to problem["viz"]["items"] #}
+{% set items = [] %}
+{% if 'items' in problem %}
+  {% set items = problem['items'] %}
+{% elif 'viz' in problem and 'items' in problem['viz'] %}
+  {% set items = problem['viz']['items'] %}
+{% endif %}
+
+<!-- Data source for the visualization -->
+<div
+  data-viz="powerset"
+  data-title="{{ problem['title'] if 'title' in problem else 'Powersets' }}"
+  data-prompt="{{ problem['prompt'] }}"
+  data-n="{{ items|length }}"
+  data-items="{{ items | join('||') }}"
+  style="display:none"
+></div>

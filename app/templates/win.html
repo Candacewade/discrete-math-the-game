@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>You won! 🎉</h1>
+    <p class="muted">You completed all 3 levels. Look at you go.</p>
+
+
+  <div class="card">
+    <h2>Your stats</h2>
+    <ul>
+      <li><strong>Product:</strong> attempts {{ product_stats.attempts }}, best streak {{ product_stats.best_streak }}</li>
+      <li><strong>Powersets:</strong> attempts {{ powerset_stats.attempts }}, best streak {{ powerset_stats.best_streak }}</li>
+      <li><strong>Combinations:</strong> attempts {{ choose_stats.attempts }}, best streak {{ choose_stats.best_streak }}</li>
+    </ul>
+
+    <form action="/reset-all" method="post" style="margin-top: 12px;">
+      <button type="submit">Play again</button>
+    </form>
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.confetti) {
+      console.warn("confetti library not loaded on /win");
+      return;
+    }
+
+    const duration = 7000; // long celebration
+    const end = Date.now() + duration;
+
+    // a few initial big bursts
+    confetti({ particleCount: 180, spread: 90, origin: { y: 0.65 } });
+    setTimeout(() => confetti({ particleCount: 140, spread: 120, origin: { y: 0.65 } }), 250);
+    setTimeout(() => confetti({ particleCount: 120, spread: 140, origin: { y: 0.65 } }), 500);
+
+    // continuous “rain” for the duration
+    const interval = setInterval(() => {
+      const timeLeft = end - Date.now();
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        // final pop
+        confetti({ particleCount: 220, spread: 100, origin: { y: 0.55 } });
+        return;
+      }
+
+      // two side cannons
+      confetti({
+        particleCount: 18,
+        startVelocity: 28,
+        spread: 70,
+        ticks: 140,
+        origin: { x: 0.1, y: 0.7 }
+      });
+      confetti({
+        particleCount: 18,
+        startVelocity: 28,
+        spread: 70,
+        ticks: 140,
+        origin: { x: 0.9, y: 0.7 }
+      });
+    }, 250);
+  });
+</script>
+
+{% endblock %}
+

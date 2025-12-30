@@ -1,0 +1,10 @@
+{% if level_complete %}
+  <div class="level-complete">
+    ✅ Level complete! You hit a {{ level_target }}-in-a-row streak.
+    <a class="next-link" href="/lesson/powerset">Next: Powersets →</a>
+  </div>
+{% else %}
+  <div class="level-incomplete muted">
+    Goal: get {{ level_target }} correct in a row to complete this level.
+  </div>
+{% endif %}

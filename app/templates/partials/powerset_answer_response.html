@@ -1,0 +1,18 @@
+{% if correct %}
+  <div class="good">Correct ✅</div>
+{% else %}
+  <div class="bad">Not quite — try again, or reveal a hint.</div>
+{% endif %}
+
+<div id="powerset-stats" class="muted" hx-swap-oob="outerHTML">
+  Attempts: {{ stats.attempts }} · Correct: {{ stats.correct }} ·
+  Streak: {{ stats.streak }} / {{ level_target }} · Best: {{ stats.best_streak }}
+</div>
+
+<div id="powerset-level-banner" hx-swap-oob="outerHTML">
+  {% if level_complete %}
+    <div class="level-complete" data-fired="0">
+      ✅ Level complete! <a href="/lesson/choose">Go to Combinations →</a>
+    </div>
+  {% endif %}
+</div>

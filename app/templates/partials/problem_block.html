@@ -1,0 +1,38 @@
+{# app/templates/partials/problem_block.html #}
+
+{% set prompt_html =
+  problem["prompt"]
+  | replace("shirts", "<span class='term-shirt'>shirts</span>")
+  | replace("shirt", "<span class='term-shirt'>shirt</span>")
+  | replace("pants", "<span class='term-pants'>pants</span>")
+  | replace("pant", "<span class='term-pants'>pant</span>")
+%}
+
+<div class="problem">
+  <p><strong>Question:</strong> <span id="productPromptText">{{ problem["prompt"] }}</span></p>
+
+  <form hx-post="/lesson/product/answer" hx-target="#feedback" hx-swap="innerHTML">
+    <input name="answer" placeholder="Enter a number" required />
+    <button type="submit">Check</button>
+  </form>
+
+  <div id="feedback"></div>
+
+  <button hx-post="/lesson/product/hint" hx-target="#hint" hx-swap="innerHTML">
+    Reveal hint
+  </button>
+
+  <div id="hint">
+    {% include "partials/hint.html" %}
+  </div>
+</div>
+
+{% if problem["viz"] and problem["viz"]["scenario"] == "outfits" %}
+  <div
+    data-viz="outfits"
+    data-shirts="{{ problem['viz']['shirts'] }}"
+    data-pants="{{ problem['viz']['pants'] }}"
+    data-prompt="{{ problem['prompt'] }}"
+    style="display:none"
+  ></div>
+{% endif %}

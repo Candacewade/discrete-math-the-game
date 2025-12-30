@@ -1,0 +1,4 @@
+
+
+Eventually, my goal is to have visualizations corresponding with and supplementing Oscar Levin's DM textbook! 
+(see here: https://discrete.openmathbooks.org/dmoi4/frontmatter.html)

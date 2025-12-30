@@ -1,0 +1,23 @@
+<p class="muted">Reset ✅ Click “New problem” to start again.</p>
+
+<div id="choose-feedback"></div>
+<div id="choose-hint"></div>
+
+<!-- default viz node so the animation can re-sync after reset -->
+<div
+  data-viz="choose"
+  data-title="Combinations"
+  data-n="9"
+  data-k="3"
+  data-prompt-combo="Choose 3 items from 9 (no order)."
+  data-answer-combo="84"
+  data-roles=""
+  style="display:none"
+></div>
+
+<!-- OOB: clear banner + reset stats display -->
+<div id="choose-level-banner" hx-swap-oob="outerHTML"></div>
+
+<div id="choose-stats" class="statsline" hx-swap-oob="outerHTML">
+  Streak: 0 / {{ level_target }} · Attempts: 0 · Best streak: 0
+</div>

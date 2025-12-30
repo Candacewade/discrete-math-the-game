@@ -1,0 +1,16 @@
+{# app/templates/partials/answer_response.html #}
+
+{% if correct %}
+  <p class="good">✅ Correct!</p>
+{% else %}
+  <p class="bad">❌ Not quite — try again.</p>
+{% endif %}
+
+{# IMPORTANT: these two are what update the scoreboard + level banner #}
+<div id="stats-area" hx-swap-oob="outerHTML">
+  {% include "partials/stats.html" %}
+</div>
+
+<div id="level-area" hx-swap-oob="outerHTML">
+  {% include "partials/level_complete.html" %}
+</div>

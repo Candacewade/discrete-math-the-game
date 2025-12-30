@@ -1,0 +1,40 @@
+<p><strong>Question:</strong> <span id="choosePromptText">{{ problem["prompt"] }}</span></p>
+
+<form
+  hx-post="/lesson/choose/answer"
+  hx-target="#choose-feedback"
+  hx-swap="innerHTML"
+>
+  <input name="answer" placeholder="Enter a number" required />
+  <button type="submit">Check</button>
+</form>
+
+<div id="choose-feedback"></div>
+
+<button
+  hx-post="/lesson/choose/hint"
+  hx-target="#choose-hint"
+  hx-swap="innerHTML"
+>
+  Reveal hint
+</button>
+
+<div id="choose-hint">
+  {% include "partials/choose_hint.html" %}
+</div>
+
+<!-- OOB: replace the top-of-page green starter text with the actual question -->
+<h3 id="chooseTopQuestion" class="top-question" hx-swap-oob="outerHTML">
+  {{ problem["prompt"] }}
+</h3>
+
+<!-- Data source for the visualization -->
+<div
+  data-viz="choose"
+  data-title="{{ problem['scenario_title'] }}"
+  data-n="{{ problem['n'] }}"
+  data-k="{{ problem['k'] }}"
+  data-prompt="{{ problem['prompt'] }}"
+  data-answer="{{ problem['answer'] }}"
+  style="display:none"
+></div>

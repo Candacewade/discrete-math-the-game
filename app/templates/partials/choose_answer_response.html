@@ -1,0 +1,15 @@
+{% if correct %}
+  <p class="good">Correct ✅</p>
+{% else %}
+  <p class="bad">Not quite — try again, or reveal a hint.</p>
+{% endif %}
+
+<div id="choose-stats" class="statsline" hx-swap-oob="outerHTML">
+  Streak: {{ stats.streak }} / {{ level_target }} · Attempts: {{ stats.attempts }} · Best streak: {{ stats.best_streak }}
+</div>
+
+<div id="choose-level-banner" hx-swap-oob="outerHTML">
+  {% if level_complete %}
+    <div class="level-complete" data-fired="0">✅ Level complete!</div>
+  {% endif %}
+</div>

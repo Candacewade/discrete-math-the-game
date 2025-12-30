@@ -1,0 +1,15 @@
+{# app/templates/partials/hint.html #}
+
+{% if not problem %}
+  <p class="muted">Click “New problem” first.</p>
+{% else %}
+  {% if hint_index == 0 %}
+    <p class="muted">Click “Reveal hint” to see a hint.</p>
+  {% else %}
+    <ul class="muted">
+      {% for h in problem["hints"][:hint_index] %}
+        <li>{{ h }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endif %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>Levels</h1>
+  <p class="muted">Finish levels to unlock the next one.</p>
+
+  {% if progress.product_complete and progress.powerset_complete and progress.choose_complete %}
+    <div class="card">
+      <div style="font-weight:700;">✅ All levels complete!</div>
+      <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+        <a class="level-card" href="/win" style="display:inline-block; padding:12px 14px; text-decoration:none;">
+          Go to win screen
+        </a>
+        <form method="post" action="/reset-all" style="display:inline;">
+          <button type="submit">Reset all</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="level-grid">
+    <!-- Level 1: Product -->
+    <a class="level-card" href="/lesson/product">
+      <div class="level-top">
+        <div class="level-title">1) Product Principle</div>
+        {% if progress.product_complete %}
+          <span class="badge done">✓ Complete</span>
+        {% else %}
+          <span class="badge">In progress</span>
+        {% endif %}
+      </div>
+      <div class="muted">AND choices → multiply</div>
+    </a>
+
+    <!-- Level 2: Powersets -->
+    {% set locked2 = not progress.product_complete %}
+    {% if locked2 %}
+      <div class="level-card locked">
+        <div class="level-top">
+          <div class="level-title">2) Powersets</div>
+          <span class="badge lock">Locked</span>
+        </div>
+        <div class="muted">Finish Product to unlock</div>
+      </div>
+    {% else %}
+      <a class="level-card" href="/lesson/powerset">
+        <div class="level-top">
+          <div class="level-title">2) Powersets</div>
+          {% if progress.powerset_complete %}
+            <span class="badge done">✓ Complete</span>
+          {% else %}
+            <span class="badge">In progress</span>
+          {% endif %}
+        </div>
+        <div class="muted">Any subset → 2^n</div>
+      </a>
+    {% endif %}
+
+    <!-- Level 3: Combinations -->
+    {% set locked3 = not progress.powerset_complete %}
+    {% if locked3 %}
+      <div class="level-card locked">
+        <div class="level-top">
+          <div class="level-title">3) Combinations</div>
+          <span class="badge lock">Locked</span>
+        </div>
+        <div class="muted">Finish Powersets to unlock</div>
+      </div>
+    {% else %}
+      <a class="level-card" href="/lesson/choose">
+        <div class="level-top">
+          <div class="level-title">3) Combinations</div>
+          {% if progress.choose_complete %}
+            <span class="badge done">✓ Complete</span>
+          {% else %}
+            <span class="badge">In progress</span>
+          {% endif %}
+        </div>
+        <div class="muted">Choose k from n → C(n,k)</div>
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}

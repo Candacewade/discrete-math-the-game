@@ -1,0 +1,9 @@
+{% if hint_index == 0 %}
+  <p class="muted">No hints revealed yet.</p>
+{% else %}
+  <ul>
+    {% for h in hints[:hint_index] %}
+      <li>{{ h }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

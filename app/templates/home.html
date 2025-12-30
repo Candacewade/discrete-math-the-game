@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>Discrete Math: The Game</h1>
+
+  <p class="muted">Progress: {{ completed_levels }} / {{ total_levels }} levels complete</p>
+
+  <!-- Actions -->
+  <div style="display:flex; gap:10px; align-items:center; margin: 12px 0;">
+    
+    <a href="{{ continue_url }}" class="level-card"
+       style="display:inline-block; padding:12px 14px; text-decoration:none; background:#148a2a; color:#fff; border-color:#148a2a; transition:filter 120ms ease;"
+       onmouseover="this.style.filter='brightness(0.95)'"
+       onmouseout="this.style.filter='none'">
+      Start
+    </a>
+
+    <a href="/levels" class="level-card" style="display:inline-block; padding:12px 14px; text-decoration:none;">
+      Levels
+    </a>
+
+    <form action="/reset-all" method="post" style="display:inline; margin:0;">
+      <button type="submit">Reset all</button>
+    </form>
+  </div>
+
+  <!-- Main content card -->
+  <div class="card">
+    <h2>What is this?</h2>
+    <p>
+      <strong>Discrete Math: The Game</strong> is a tiny interactive web app that helps you build intuition for core topics in discrete
+      math using visual animations and quick practice questions.
+    </p>
+
+    <h3>Purpose</h3>
+    <p>
+      The goal of math isn’t solely memorizing formulas but seeing <em>why</em> the formulas work, so you can recognize which principle to use in new problems! The purpose of this game is to show you that why visually.
+    </p>
+
+    <h3>Levels</h3>
+    <ul>
+      <li><strong>Level 1: Product Principle</strong> — “AND” choices multiply (visualized as branching possibilities).</li>
+      <li><strong>Level 2: Powersets</strong> — each element is in or out → <strong>2^n</strong> subsets.</li>
+      <li><strong>Level 3: Combinations</strong> — choose k elements from n total elements: <strong>C(n,k)</strong>.</li>
+    </ul>
+
+    <h3>How to win</h3>
+    <p>
+      Each level is completed by getting a <strong>3-in-a-row streak</strong> of correct answers. Finish all three levels to win the game!
+    </p>
+
+    <h3>Feedback / Contact</h3>
+    <p>
+      If you have feature ideas, bug reports, or just want to say hi, email me at
+      <a href="mailto:wade.candace1@gmail.com">wade.candace1@gmail.com</a>.
+    </p>
+  </div>
+{% endblock %}

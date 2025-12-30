@@ -1,0 +1,531 @@
+/* =========================
+   Discrete Math: The Game
+   Clean consolidated styles.css
+   ========================= */
+
+/* ---- Theme ---- */
+:root{
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --border: #e8e8e8;
+  --soft: #fafafa;
+  --shadow: 0 10px 30px rgba(0,0,0,0.06);
+
+  --green: #148a2a;
+
+  /* Product level highlight colors */
+  --shirt-blue: #A8D8FF;
+  --pants-beige: #E8D8B5;
+}
+
+/* ---- Base / Reset ---- */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+a{ color: inherit; }
+
+/* Optional legacy wrapper (safe to keep) */
+.container{
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* ---- Common UI ---- */
+.card{
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 16px 0;
+  background: #fff;
+}
+
+.muted{ color: var(--muted); }
+.good{ color: #0a7a2f; font-weight: 700; }
+.bad{ color: #b00020; font-weight: 700; }
+
+/* “Click New problem…” hint (used in multiple places) */
+.start-hint{
+  color: var(--green);
+  font-weight: 700;
+}
+
+.top-question{
+  margin: 8px 0 18px;
+  color: var(--text);
+  font-weight: 700;
+}
+.top-question.start-hint{
+  color: var(--green);
+  font-weight: 800;
+}
+
+.stats{
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.statsline{
+  color: var(--text);
+  font-weight: 600;
+  margin: 10px 0 14px;
+}
+
+/* ---- Buttons / Inputs ---- */
+button{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #fff;
+  cursor: pointer;
+}
+button:hover{ filter: brightness(0.95); }
+
+button.ghost{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid #ddd;
+}
+
+.next-btn{ margin-top: 10px; }
+
+/* Continue button (if you apply class="btn-continue") */
+.btn-continue{
+  background: #54c569 !important;
+  border-color: var(--green) !important;
+  color: #fff !important;
+  transition: filter 120ms ease;
+}
+.btn-continue:hover{ filter: brightness(0.95); }
+
+input{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+form{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+}
+.problem{ margin-top: 12px; }
+
+/* ---- App Shell (base.html) ---- */
+.layout{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 18px;
+}
+
+.sidebar{
+  width: 250px;
+  flex: 0 0 250px;
+  position: sticky;
+  top: 14px;
+  height: calc(100vh - 28px);
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+.brand{
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+  margin: 6px 6px 14px;
+}
+
+.nav{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav a{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+
+  border: 1px solid #efefef;
+  background: var(--soft);
+
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+.nav a:hover{
+  background: #f4f4f5;
+  border-color: #e5e5e5;
+  transform: translateX(1px);
+}
+.nav a.active{
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.main{
+  flex: 1;
+  min-width: 0;
+  max-width: 980px;
+  padding-right: 12px;
+}
+
+@media (max-width: 900px){
+  .layout{ flex-direction: column; padding: 14px; }
+  .sidebar{
+    width: 100%;
+    flex-basis: auto;
+    height: auto;
+    position: static;
+  }
+}
+
+/* ---- Levels page cards ---- */
+.level-grid{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (min-width: 800px){
+  .level-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.level-card{
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  background: #fff;
+}
+.level-card:hover{ box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+.level-top{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.level-title{ font-weight: 800; }
+
+.level-card.locked{
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.badge{
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-weight: 800;
+}
+.badge.done{ border-color: #0a7a2f; color: #0a7a2f; }
+.badge.lock{ border-color: var(--text); }
+
+/* ---- Completion banner ---- */
+.level-complete{
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+/* =========================
+   Shared SVG styles (Product + Choose)
+   ========================= */
+.node{ fill: var(--text); }
+.edge{ stroke: var(--text); stroke-width: 2; }
+.box{
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+  rx: 10;
+  opacity: 0;
+}
+.label{ font-size: 16px; fill: var(--text); }
+.eq{ font-size: 18px; fill: var(--text); font-weight: 600; }
+.mutedSvg{ font-size: 14px; fill: var(--muted); }
+.rootDot{ fill: var(--text); }
+
+/* =========================
+   Product level (Counting/Product rule)
+   ========================= */
+.term-shirt{ color: var(--shirt-blue); font-weight: 800; }
+.term-pants{ color: var(--pants-beige); font-weight: 800; }
+
+/* =========================
+   Choose / Combinations level
+   ========================= */
+.choose-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.toggle-row{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.toggle{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.mode{ color: #555; }
+.viz-wrap{ margin-top: 10px; }
+
+.pool-label{ margin-top: 18px; font-weight: 600; color: #555; }
+.pool{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 6px;
+}
+
+.pdot{
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 12px;
+  color: #0b0b0b;
+  border: 2px solid rgba(0,0,0,0.08);
+  user-select: none;
+}
+
+.perm-slots{
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 16px 0 6px;
+  min-height: 86px;
+}
+.slot-col{ text-align: center; }
+.slot-label{
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.slot{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid rgba(0,0,0,0.18);
+  display: grid;
+  place-items: center;
+}
+
+.combo-rows{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.row-label{
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.slot-row{
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  min-height: 52px;
+}
+
+/* keep “chip” pill available for other UI if needed */
+.chip{
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 600;
+  background: #fff;
+}
+
+/* combinations rows use chip as circles */
+.slot-row .chip{
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  border: 2px solid rgba(0,0,0,0.08);
+}
+
+.set-row .chip{
+  outline: 3px solid rgba(0,0,0,0.06);
+}
+
+.eqline{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 28px;
+}
+.eqText{
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* =========================
+   Powersets level
+   ========================= */
+.ps-label{
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+/* The colorful animation area (2 columns) */
+.ps-vizgrid{
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  margin-top: 14px;
+  align-items: start;
+}
+@media (max-width: 900px){
+  .ps-vizgrid{ grid-template-columns: 1fr; }
+}
+
+/* Backward-compatible: if any older template still uses ps-grid */
+.ps-grid{
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  margin: 14px 0;
+  align-items: start;
+}
+@media (max-width: 900px){
+  .ps-grid{ grid-template-columns: 1fr; }
+}
+
+.ps-pool{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.ps-item{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.ps-dot{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 14px;
+  border: 2px solid rgba(0,0,0,0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.ps-name{
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 90px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.ps-box{
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 72px;
+  background: #fff;
+}
+
+.ps-subset{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ps-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 2px solid var(--text);
+  font-weight: 700;
+  font-size: 13px;
+  background: #fff;
+}
+
+#psNextBtn{
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+
+/* “All subsets” block injected by JS */
+#psAllWrap{ margin-top: 14px; }
+
+#psAllSubsets{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.ps-subcard{
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 13px;
+  color: var(--text);
+  background: #fff;
+  text-align: center;
+}
+.ps-subcard.active{
+  border-color: var(--text);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.ps-eq{
+  margin-top: 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <h1>Product Principle</h1>
+
+ <h3 id="topQuestion" class="top-question start-hint">
+  Click “New problem” to start, then hit next to visualize the problem.
+</h3>
+
+  <!-- Card 1: Animation -->
+  <div class="card">
+  <svg id="scene" viewBox="0 0 800 360" width="100%" style="height:auto; display:block;">
+  <text id="stepALabel" x="30" y="40" class="label">Choose a shirt</text>
+  <text id="stepBLabel" x="430" y="40" class="label">Then choose pants</text>
+
+  <g id="edgesGroup"></g>
+  <g id="shirtsGroup"></g>
+  <g id="pantsGroup"></g>
+
+  <text id="eqText" x="600" y="120" class="eq" opacity="0">Total = ? × ?</text>
+</svg>
+
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <!-- Card 2: Practice -->
+  <div class="card">
+    <h2>Try a problem</h2>
+
+    <div id="stats-area">
+    {% include "partials/stats.html" %}
+    </div>
+
+    <div id="level-area">
+      {% include "partials/level_complete.html" %}
+    </div>
+
+    <button
+      class="ghost"
+      hx-post="/lesson/product/reset"
+      hx-swap="none"
+    >
+      Reset progress
+    </button>
+
+    <button
+      hx-post="/lesson/product/new"
+      hx-target="#problem-area"
+      hx-swap="innerHTML"
+    >
+      New problem
+    </button>
+
+    <div id="problem-area">
+      {% if problem %}
+        {% include "partials/problem_block.html" %}
+      {% else %}
+        <p class="start-hint">Click “New problem” to start, then hit next to visualize the problem.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="/static/js/animations/product_principle_anim.js"></script>
+{% endblock %}
+
