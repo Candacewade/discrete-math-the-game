@@ -11,7 +11,7 @@ from .game.topics.choose_nk import generate_choose_nk_problem
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
 
-LEVEL_STREAK_TARGET = 3  # "win condition" for Product
+LEVEL_STREAK_TARGET = 3  # "win condition"
 
 
 def _get_progress(session: dict) -> dict:

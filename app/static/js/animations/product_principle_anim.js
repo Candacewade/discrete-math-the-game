@@ -215,7 +215,7 @@ function fireConfettiBurst() {
   if (confettiFired) return;
   confettiFired = true;
 
-  // A quick "Brilliant-ish" burst
+  // A quick burst
   confetti({
     particleCount: 140,
     spread: 70,
