@@ -3,6 +3,9 @@
 
 A tiny web app to learn discrete math concepts with interactive visuals and practice problems.
 
+## Live Demo Link
+Demo: https://discrete-math-the-game.onrender.com
+
 ## Run locally
 ```bash
 python -m venv .venv
